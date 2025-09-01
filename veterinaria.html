@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guía de Primeros Auxilios para Mascotas</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Warm Neutrals -->
+    <!-- Application Structure Plan: The application uses a single-page, thematic structure with a sticky top navigation for quick access to critical sections. The core of the app is a grid of interactive cards, each representing a specific pet emergency. Clicking a card opens a modal with focused, step-by-step instructions, minimizing distractions for a user in a stressful situation. This card/modal approach was chosen over a long scrolling document to make information discovery faster and more intuitive, especially on mobile devices during an actual emergency. The structure prioritizes immediate access to emergency procedures and contact information. -->
+    <!-- Visualization & Content Choices: Report Info: First aid procedures -> Goal: Provide clear, focused instructions -> Presentation: Interactive cards opening modal windows -> Interaction: User clicks a card corresponding to the emergency to reveal detailed steps -> Justification: This pattern (card grid + modal) is highly scannable and prevents overwhelming the user with irrelevant information, which is critical in an emergency. Report Info: First aid kit contents -> Goal: Inform and encourage preparation -> Presentation: A visual grid of items with icons -> Interaction: N/A (static display) -> Justification: A grid is more visually engaging and easier to parse than a simple list. No quantitative data was present in the report, so no charts were needed. All visual elements are created with HTML/CSS/Unicode. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #FDFBF8;
+            color: #4A4A4A;
+        }
+        .nav-link {
+            transition: color 0.3s, border-bottom-color 0.3s;
+        }
+        .nav-link:hover {
+            color: #D97706; 
+        }
+        .card {
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        .modal-backdrop {
+            transition: opacity 0.3s ease-in-out;
+        }
+        .modal-content {
+            transition: transform 0.3s ease-in-out;
+        }
+        .modal-list li {
+            position: relative;
+            padding-left: 1.75rem;
+            margin-bottom: 0.75rem;
+        }
+        .modal-list li::before {
+            content: '🐾';
+            position: absolute;
+            left: 0;
+            top: 2px;
+            color: #FBBF24;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <header class="bg-amber-100/50 sticky top-0 z-40 shadow-sm backdrop-blur-md">
+        <nav class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="text-xl font-bold text-amber-800">
+                <span class="text-2xl">🐾</span> Guía Rápida
+            </div>
+            <div class="hidden md:flex space-x-6">
+                <a href="#principios" class="nav-link text-gray-600 font-medium">Principios</a>
+                <a href="#botiquin" class="nav-link text-gray-600 font-medium">Botiquín</a>
+                <a href="#emergencias" class="nav-link text-gray-600 font-medium">Emergencias</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container mx-auto px-4 py-8 md:py-12">
+
+        <section id="hero" class="text-center mb-16">
+            <h1 class="text-4xl md:text-5xl font-bold text-amber-900 mb-4">Primeros Auxilios para Mascotas</h1>
+            <p class="text-lg text-gray-600 max-w-3xl mx-auto">Una guía interactiva para actuar con calma y eficacia en momentos críticos. Recuerda, estos pasos no reemplazan la atención veterinaria profesional.</p>
+        </section>
+
+        <section id="contactos" class="mb-16">
+             <div class="grid md:grid-cols-2 gap-8">
+                <div class="bg-white p-6 rounded-lg shadow-md border border-gray-200">
+                    <h3 class="text-xl font-bold text-amber-800 mb-3 border-b pb-2">Veterinaria de Confianza</h3>
+                    <p class="text-gray-700"><strong>Nombre:</strong> Zoogranja</p>
+                    <p class="text-gray-700"><strong>Teléfono:</strong> 3227669 / 3126143152</p>
+                    <p class="text-gray-700"><strong>Email:</strong> zoogranja@hotmail.com</p>
+                    <p class="text-gray-700"><strong>Dirección:</strong> Cr 50 # 48-52, Itagüí</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md border border-gray-200">
+                    <h3 class="text-xl font-bold text-amber-800 mb-3 border-b pb-2">Información de Mi Mascota</h3>
+                    <p class="text-gray-700"><strong>Dueño:</strong> Emanuel Metaute (Tel: 3045854342)</p>
+                    <p class="text-gray-700"><strong>Nombre:</strong> Zeus</p>
+                    <p class="text-gray-700"><strong>Raza:</strong> Bulldog Francés</p>
+                    <p class="text-gray-700"><strong>Nacimiento:</strong> 22 de Noviembre 2023</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="principios" class="mb-16">
+            <h2 class="text-3xl font-bold text-center text-amber-900 mb-8">Principios Fundamentales</h2>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="bg-amber-50 p-6 rounded-lg border border-amber-200">
+                    <h3 class="text-2xl font-bold text-amber-800 mb-3">⭐ La Importancia de Actuar</h3>
+                    <p class="text-gray-700">Los primeros auxilios pueden salvar la vida de tu mascota al proporcionar un tratamiento inicial crucial en una emergencia. Ayudan a estabilizar al animal hasta que llegue la atención veterinaria profesional, marcando la diferencia en el pronóstico.</p>
+                </div>
+                <div class="bg-red-50 p-6 rounded-lg border border-red-200">
+                    <h3 class="text-2xl font-bold text-red-800 mb-3">⚠️ Tu Seguridad es Primero</h3>
+                    <p class="text-gray-700">Una mascota herida tiene dolor y miedo, lo que puede volverla impredecible. Nunca asumas que no morderá. Evita abrazarla y mantén tu rostro alejado de su hocico. Actúa con calma y cuidado para protegerte a ti y no estresar más a tu compañero.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="botiquin" class="mb-16">
+            <h2 class="text-3xl font-bold text-center text-amber-900 mb-2">Prepara tu Botiquín de Primeros Auxilios</h2>
+            <p class="text-center text-gray-600 mb-8">Tener estos elementos a mano puede ser vital. Revisa tu botiquín periódicamente.</p>
+            <div id="botiquin-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 text-center">
+            </div>
+        </section>
+
+        <section id="emergencias">
+            <h2 class="text-3xl font-bold text-center text-amber-900 mb-2">¿Qué Hacer en Caso de... ?</h2>
+            <p class="text-center text-gray-600 mb-8">Selecciona una emergencia para ver los pasos a seguir. Actúa con calma y contacta a tu veterinario.</p>
+            <div id="emergencias-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            </div>
+        </section>
+    </main>
+    
+    <footer class="bg-gray-800 text-white mt-16">
+        <div class="container mx-auto px-4 py-6 text-center">
+            <p>Esta guía es una herramienta de apoyo basada en el folleto de Emanuel Metaute.</p>
+            <p class="text-sm text-gray-400 mt-2">Siempre busca atención veterinaria profesional. Esto no es un sustituto.</p>
+        </div>
+    </footer>
+
+    <div id="modal" class="modal-backdrop fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center p-4 z-50 opacity-0 pointer-events-none">
+        <div id="modal-content" class="modal-content bg-white rounded-lg shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto p-6 md:p-8 transform scale-95">
+            <div class="flex justify-between items-start mb-4">
+                <h2 id="modal-title" class="text-3xl font-bold text-amber-900"></h2>
+                <button id="close-modal" class="text-gray-500 hover:text-red-600 text-3xl">&times;</button>
+            </div>
+            <div id="modal-body" class="text-gray-700 leading-relaxed">
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            const botiquinData = [
+                { icon: '🩹', name: 'Vendas' },
+                { icon: '🌿', name: 'Gasas esterilizadas' },
+                { icon: '✂️', name: 'Tijeras' },
+                { icon: '🧴', name: 'Solución antiséptica' },
+                { icon: '💧', name: 'Suero fisiológico' },
+                { icon: '🌡️', name: 'Termómetro rectal' },
+                { icon: '🧤', name: 'Guantes de látex' },
+                { icon: '💊', name: 'Carbón activado' },
+                { icon: '💉', name: 'Jeringa sin aguja' },
+                { icon: '🔦', name: 'Linterna pequeña' },
+                { icon: '🚰', name: 'Agua oxigenada (3%)' },
+                { icon: '📜', name: 'Cinta adhesiva' },
+                { icon: '🐶', name: 'Bozal adecuado' },
+                { icon: '📘', name: 'Manual de primeros auxilios' },
+                { icon: '📞', name: 'Números de emergencia' }
+            ];
+
+            const emergenciasData = [
+                { 
+                    id: 'asfixia',
+                    icon: '💨',
+                    title: 'Asfixia',
+                    steps: [
+                        'Si tu mascota se está ahogando, pero todavía puede respirar, mantén la calma y llévala al veterinario.',
+                        'Revisa su boca para ver si hay un objeto extraño. Si lo ves, intenta quitarlo con cuidado con unas pinzas.',
+                        'Si no puedes quitar el objeto, intenta la maniobra de Heimlich para mascotas.',
+                        '<strong>Perros pequeños:</strong> Levanta sus patas traseras y sacúdelo suavemente. <strong>Perros grandes:</strong> Colócate detrás de él, rodea su abdomen con tus brazos y presiona hacia arriba y adentro, justo debajo de las costillas.'
+                    ]
+                },
+                { 
+                    id: 'no-respira',
+                    icon: '💔',
+                    title: 'No Respira',
+                    steps: [
+                        'Asegúrate de que las vías respiratorias estén despejadas.',
+                        'Cierra la boca de tu mascota y sopla aire en su nariz cada 3-5 segundos.',
+                        'Observa si su pecho se eleva. Si no lo hace, reposiciona su cabeza e inténtalo de nuevo.',
+                        'Si no hay pulso, comienza las compresiones torácicas (RCP) y alterna con la respiración de rescate.',
+                        'Busca atención veterinaria de inmediato.'
+                    ]
+                },
+                {
+                    id: 'hemorragia',
+                    icon: '🩸',
+                    title: 'Hemorragia Externa',
+                    steps: [
+                        'Aplica presión directa y firme sobre la herida con una gasa o un paño limpio.',
+                        'Si la sangre empapa la gasa, no la retires. Añade más gasas encima y sigue aplicando presión.',
+                        'Si es posible, eleva la extremidad herida por encima del nivel del corazón.',
+                        'Si la hemorragia es severa y no se detiene, aplica presión en un punto de presión arterial (por ejemplo, en la ingle para una pata trasera).',
+                        'Lleva a tu mascota al veterinario de inmediato.'
+                    ]
+                },
+                {
+                    id: 'quemaduras',
+                    icon: '🔥',
+                    title: 'Quemaduras',
+                    steps: [
+                        'Enfría la zona afectada inmediatamente con agua fría durante al menos 10-15 minutos.',
+                        'No uses hielo directamente sobre la piel.',
+                        'Cubre la quemadura con una gasa estéril y húmeda.',
+                        'No apliques ungüentos, cremas o mantequilla, ya que pueden atrapar el calor y causar más daño.',
+                        'Lleva a tu mascota al veterinario, especialmente si la quemadura es grande o profunda.'
+                    ]
+                },
+                 {
+                    id: 'envenenamiento',
+                    icon: '☠️',
+                    title: 'Envenenamiento',
+                    steps: [
+                        'Identifica el veneno si es posible. Lleva contigo cualquier envoltorio o muestra de la sustancia.',
+                        'Llama a tu veterinario o a un centro de control de envenenamiento de inmediato.',
+                        'No induzcas el vómito a menos que un profesional te lo indique. Algunas sustancias pueden causar más daño al volver a pasar por el esófago.',
+                        'Sigue las instrucciones del profesional al pie de la letra.'
+                    ]
+                },
+                {
+                    id: 'fracturas',
+                    icon: '🦴',
+                    title: 'Fracturas',
+                    steps: [
+                        'No intentes volver a colocar el hueso en su lugar.',
+                        'Mantén a tu mascota lo más quieta posible para evitar más lesiones.',
+                        'Si es necesario moverla, utiliza una tabla o una manta como camilla improvisada.',
+                        'Si debes entablillar la extremidad, hazlo con cuidado para inmovilizar las articulaciones por encima y por debajo de la fractura. No lo aprietes demasiado.',
+                        'Llévala al veterinario con mucho cuidado.'
+                    ]
+                },
+                {
+                    id: 'convulsiones',
+                    icon: '⚡',
+                    title: 'Convulsiones',
+                    steps: [
+                        'Mantén la calma. La mayoría de las convulsiones duran solo unos minutos.',
+                        'Aleja cualquier objeto con el que tu mascota pueda golpearse (muebles, escaleras).',
+                        'No intentes sujetar a tu mascota ni poner nada en su boca. No se tragará la lengua.',
+                        'Habla con voz suave y tranquilizadora.',
+                        'Una vez que la convulsión termine, mantenla en un lugar tranquilo y oscuro y contacta a tu veterinario.'
+                    ]
+                },
+                 {
+                    id: 'golpe-calor',
+                    icon: '☀️',
+                    title: 'Golpe de Calor',
+                    steps: [
+                        'Llévala inmediatamente a una zona sombreada y fresca.',
+                        'Coloca una toalla mojada con agua fresca (no helada) alrededor de su cuello y cabeza.',
+                        'Vierte agua fresca constantemente sobre su cuerpo, especialmente en el abdomen y entre las patas.',
+                        'Ofrécele pequeñas cantidades de agua para beber, pero no la fuerces.',
+                        'Llévala al veterinario lo antes posible, incluso si parece recuperarse.'
+                    ]
+                }
+            ];
+            
+            const botiquinGrid = document.getElementById('botiquin-grid');
+            botiquinData.forEach(item => {
+                const div = document.createElement('div');
+                div.className = 'bg-white p-4 rounded-lg shadow-sm border border-gray-200 flex flex-col items-center justify-center';
+                div.innerHTML = `<div class="text-4xl mb-2">${item.icon}</div><span class="font-medium text-gray-700">${item.name}</span>`;
+                botiquinGrid.appendChild(div);
+            });
+
+            const emergenciasGrid = document.getElementById('emergencias-grid');
+            const modal = document.getElementById('modal');
+            const modalContent = document.getElementById('modal-content');
+            const modalTitle = document.getElementById('modal-title');
+            const modalBody = document.getElementById('modal-body');
+            const closeModalBtn = document.getElementById('close-modal');
+
+            emergenciasData.forEach(item => {
+                const button = document.createElement('button');
+                button.className = 'card bg-white p-6 rounded-lg shadow-md border border-gray-200 text-left flex items-center space-x-4';
+                button.dataset.emergencyId = item.id;
+                button.innerHTML = `
+                    <div class="text-5xl">${item.icon}</div>
+                    <div>
+                        <h3 class="text-2xl font-bold text-amber-800">${item.title}</h3>
+                        <p class="text-gray-500">Ver procedimiento</p>
+                    </div>
+                `;
+                emergenciasGrid.appendChild(button);
+            });
+            
+            const openModal = (id) => {
+                const data = emergenciasData.find(e => e.id === id);
+                if (!data) return;
+
+                modalTitle.textContent = data.title;
+                const stepsHtml = data.steps.map(step => `<li>${step}</li>`).join('');
+                modalBody.innerHTML = `<ul class="modal-list">${stepsHtml}</ul>`;
+
+                modal.classList.remove('opacity-0', 'pointer-events-none');
+                modalContent.classList.remove('scale-95');
+            };
+
+            const closeModal = () => {
+                modal.classList.add('opacity-0', 'pointer-events-none');
+                modalContent.classList.add('scale-95');
+            };
+
+            emergenciasGrid.addEventListener('click', (e) => {
+                const card = e.target.closest('button[data-emergency-id]');
+                if (card) {
+                    openModal(card.dataset.emergencyId);
+                }
+            });
+
+            closeModalBtn.addEventListener('click', closeModal);
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    closeModal();
+                }
+            });
+
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>
